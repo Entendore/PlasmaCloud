@@ -147,13 +147,13 @@ python PlasmaCloud.py --mode colormap --num_images 5
 
 | Roughness = 2 | Roughness = 4 | Roughness = 8 | Roughness = 16 |
 |---------------|---------------|---------------|---------------|
-| ![Roughness 2](PlasmaAnimation/roughness/roughness2_seed12345_palette001_529ec8bd.png) | ![Roughness 4](PlasmaAnimation/roughness/roughness4_seed12345_palette001_529ec8bd.png) | ![Roughness 8](PlasmaAnimation/roughness/roughness8_seed12345_palette001_529ec8bd.png) | ![Roughness 16](PlasmaAnimation/roughness/roughness16_seed12345_palette001_529ec8bd.png) |
+| ![Roughness 2](PlasmaAnimation/roughness/roughness2_seed12345_palette_001_529ec8bd.png) | ![Roughness 4](PlasmaAnimation/roughness/roughness4_seed12345_palette_001_529ec8bd.png) | ![Roughness 8](PlasmaAnimation/roughness/roughness8_seed12345_palette_001_529ec8bd.png) | ![Roughness 16](PlasmaAnimation/roughness/roughness16_seed12345_palette_001_529ec8bd.png) |
 
 ### Blur Variations
 
 | Blur = 0 | Blur = 2 | Blur = 4 | Blur = 6 |
 |----------|----------|----------|----------|
-| ![Blur 0](PlasmaAnimation/blur/blur0_seed12345_palette001_529ec8bd.png) | ![Blur 2](PlasmaAnimation/blur/blur2_seed12345_palette001_529ec8bd.png) | ![Blur 4](PlasmaAnimation/blur/blur4_seed12345_palette001_529ec8bd.png) | ![Blur 6](PlasmaAnimation/blur/blur6_seed12345_palette001_529ec8bd.png) |
+| ![Blur 0](PlasmaAnimation/blur/blur0_seed12345_palette_001_529ec8bd.png) | ![Blur 2](PlasmaAnimation/blur/blur2_seed12345_palette_001_529ec8bd.png) | ![Blur 4](PlasmaAnimation/blur/blur4_seed12345_palette_001_529ec8bd.png) | ![Blur 6](PlasmaAnimation/blur/blur6_seed12345_palette_001_529ec8bd.png) |
 
 ### Random Generation
 
