@@ -4,7 +4,8 @@ Seed: 12345
 Resolution: 512x512
 Palettes Directory: palettes
 Available Palettes: 150
-Generated on: Mon, Nov 17, 2025  2:44:48 PM
+Used Palette: palette_001 (hash: 529ec8bd)
+Generated on: Mon, Nov 17, 2025  3:16:46 PM
 
 Roughness Values:
    - 2
@@ -24,8 +25,9 @@ Files Generated:
 - Random image in: PlasmaAnimation/random/
 - Animations (if ffmpeg available): PlasmaAnimation/*_animation_*.gif
 
-Each filename includes:
+Filename Format:
 - Parameter type (roughness/blur/random)
-- Parameter value
+- Parameter value (if applicable)
 - Seed value
 - Palette name
+- Palette hash (first 8 characters)

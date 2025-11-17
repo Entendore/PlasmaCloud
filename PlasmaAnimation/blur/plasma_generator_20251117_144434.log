@@ -1,8 +1,0 @@
-2025-11-17 14:44:34,880 - PlasmaGenerator_2513338542352 - INFO - Initialized PlasmaGenerator in mode: 'blur'
-2025-11-17 14:44:34,880 - PlasmaGenerator_2513338542352 - INFO - Output will be saved to: PlasmaAnimation\blur
-2025-11-17 14:44:34,880 - PlasmaGenerator_2513338542352 - INFO - Loaded 150 palettes.
-2025-11-17 14:44:34,881 - PlasmaGenerator_2513338542352 - INFO - Starting generation of 1 image sets...
-2025-11-17 14:44:34,881 - PlasmaGenerator_2513338542352 - INFO - Prepared 1 tasks for parallel processing.
-2025-11-17 14:44:36,609 - PlasmaGenerator_2513338542352 - INFO - Completed: Plasma_0_blur_blur2_seed12345_pal861c70.png
-2025-11-17 14:44:36,682 - PlasmaGenerator_2513338542352 - INFO - Saved manifest to: PlasmaAnimation\blur\manifest.json
-2025-11-17 14:44:36,683 - PlasmaGenerator_2513338542352 - INFO - Generation complete in 1.80 seconds.

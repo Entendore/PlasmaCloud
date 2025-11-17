@@ -61,19 +61,42 @@ else
     FFMPEG_AVAILABLE=false
 fi
 
+# Function to get hash of a file
+get_palette_hash() {
+    local palette_file="$1"
+    if command -v md5sum &> /dev/null; then
+        md5sum "$palette_file" | cut -d' ' -f1 | cut -c1-8
+    elif command -v md5 &> /dev/null; then
+        md5 -q "$palette_file" | cut -c1-8
+    else
+        # Fallback to a simple hash based on file size and modification time
+        stat -c "%s-%Y" "$palette_file" | cksum | cut -d' ' -f1 | cut -c1-8
+    fi
+}
+
 # Function to rename files properly
 rename_file() {
     local search_dir="$1"
-    local suffix="$2"
-    local param_name="$3"
-    local param_value="$4"
+    local param_name="$2"
+    local param_value="$3"
+    local palette_name="$4"
+    local palette_hash="$5"
     
     # Find the most recently modified file matching the pattern
     local file=$(find "$search_dir" -name "Plasma_*.png" -type f -printf "%T@ %p\n" | sort -n | tail -1 | cut -d' ' -f2-)
     
     if [ -n "$file" ]; then
-        local base_name=$(basename "$file" .png)
-        local new_name="${base_name}_${param_name}${param_value}_seed${SEED}${suffix}.png"
+        # Create a clean filename with all required information
+        local new_name="${param_name}"
+        
+        # Add parameter value if it exists
+        if [ -n "$param_value" ]; then
+            new_name="${new_name}${param_value}"
+        fi
+        
+        # Add seed, palette name and hash
+        new_name="${new_name}_seed${SEED}_${palette_name}_${palette_hash}.png"
+        
         mv "$file" "$search_dir/$new_name"
         echo "Renamed to: $new_name"
         # Return the full path
@@ -81,11 +104,13 @@ rename_file() {
     fi
 }
 
-# Function to get palette by index
+# --- CORRECTED FUNCTION ---
+# Function to get palette by index (0-based)
 get_palette_by_index() {
     local index=$1
-    # Use find with head and tail to get the specific line
-    find "$PALETTE_DIR" -name "*.map" | head -n "$index" | tail -1
+    # Use sed to select the line number. It's more direct for this.
+    # We add 1 because sed line numbers are 1-based.
+    find "$PALETTE_DIR" -name "*.map" | sed -n "$((index + 1))p"
 }
 
 # Function to collect renamed files
@@ -98,7 +123,7 @@ collect_renamed_files() {
     
     # Find all renamed files with the expected pattern
     local files=()
-    for file in "$search_dir"/*_seed${SEED}*.png; do
+    for file in "$search_dir"/*_seed${SEED}_*.png; do
         if [ -f "$file" ]; then
             files+=("$file")
         fi
@@ -114,16 +139,26 @@ collect_renamed_files() {
     done
 }
 
+# Select a single palette to use for all images
+PALETTE_INDEX=0  # Use the first palette (index 0)
+selected_palette=$(get_palette_by_index $PALETTE_INDEX)
+
+# --- ADDED SAFETY CHECK ---
+if [ -z "$selected_palette" ]; then
+    echo "Error: Could not select a palette at index $PALETTE_INDEX."
+    echo "Please check your palettes directory and the PALETTE_COUNT ($PALETTE_COUNT)."
+    exit 1
+fi
+
+palette_name=$(basename "$selected_palette" .map)
+palette_hash=$(get_palette_hash "$selected_palette")
+
+echo "Using palette: $palette_name (hash: $palette_hash) for all images"
+
 # Generate 4 images with different roughness values
 echo "Generating images with different roughness values..."
-roughness_count=0
 for roughness in "${ROUGHNESS_VALUES[@]}"; do
-    # Select a different palette for each roughness value
-    palette_index=$((roughness_count % PALETTE_COUNT))
-    selected_palette=$(get_palette_by_index $palette_index)
-    palette_name=$(basename "$selected_palette" .map)
-    
-    echo "Generating roughness $roughness with palette $palette_name (index $palette_index)..."
+    echo "Generating roughness $roughness with palette $palette_name..."
     python PlasmaCloud.py \
         --output_dir "$OUTPUT_DIR/roughness" \
         --res "$RESOLUTION" \
@@ -134,12 +169,10 @@ for roughness in "${ROUGHNESS_VALUES[@]}"; do
         --seed "$SEED"
     
     # Rename the generated file and store the path
-    renamed_file=$(rename_file "$OUTPUT_DIR/roughness" "_palette${palette_name}" "roughness" "$roughness")
+    renamed_file=$(rename_file "$OUTPUT_DIR/roughness" "roughness" "$roughness" "$palette_name" "$palette_hash")
     if [ -n "$renamed_file" ]; then
         roughness_files+=("$renamed_file")
     fi
-    
-    roughness_count=$((roughness_count + 1))
 done
 
 # Collect all roughness files
@@ -148,14 +181,8 @@ collect_renamed_files "$OUTPUT_DIR/roughness" "roughness_files"
 
 # Generate 4 images with different blur values
 echo "Generating images with different blur values..."
-blur_count=0
 for blur in "${BLUR_VALUES[@]}"; do
-    # Select a different palette for each blur value
-    palette_index=$((blur_count % PALETTE_COUNT))
-    selected_palette=$(get_palette_by_index $palette_index)
-    palette_name=$(basename "$selected_palette" .map)
-    
-    echo "Generating blur $blur with palette $palette_name (index $palette_index)..."
+    echo "Generating blur $blur with palette $palette_name..."
     python PlasmaCloud.py \
         --output_dir "$OUTPUT_DIR/blur" \
         --res "$RESOLUTION" \
@@ -166,12 +193,10 @@ for blur in "${BLUR_VALUES[@]}"; do
         --seed "$SEED"
     
     # Rename the generated file and store the path
-    renamed_file=$(rename_file "$OUTPUT_DIR/blur" "_palette${palette_name}" "blur" "$blur")
+    renamed_file=$(rename_file "$OUTPUT_DIR/blur" "blur" "$blur" "$palette_name" "$palette_hash")
     if [ -n "$renamed_file" ]; then
         blur_files+=("$renamed_file")
     fi
-    
-    blur_count=$((blur_count + 1))
 done
 
 # Collect all blur files
@@ -180,10 +205,6 @@ collect_renamed_files "$OUTPUT_DIR/blur" "blur_files"
 
 # Generate 1 random image
 echo "Generating random image..."
-# Use the first palette for the random image
-selected_palette=$(get_palette_by_index 0)
-palette_name=$(basename "$selected_palette" .map)
-
 python PlasmaCloud.py \
     --output_dir "$OUTPUT_DIR/random" \
     --res "$RESOLUTION" \
@@ -193,7 +214,7 @@ python PlasmaCloud.py \
     --seed "$SEED"
 
 # Rename the random image
-random_file=$(rename_file "$OUTPUT_DIR/random" "_palette${palette_name}" "random" "")
+random_file=$(rename_file "$OUTPUT_DIR/random" "random" "" "$palette_name" "$palette_hash")
 
 # Create animated GIFs using ffmpeg
 if [ "$FFMPEG_AVAILABLE" = true ]; then
@@ -299,6 +320,7 @@ Seed: $SEED
 Resolution: $RESOLUTION
 Palettes Directory: $PALETTE_DIR
 Available Palettes: $PALETTE_COUNT
+Used Palette: $palette_name (hash: $palette_hash)
 Generated on: $(date)
 
 Roughness Values:
@@ -313,11 +335,12 @@ Files Generated:
 - Random image in: $OUTPUT_DIR/random/
 - Animations (if ffmpeg available): $OUTPUT_DIR/*_animation_*.gif
 
-Each filename includes:
+Filename Format:
 - Parameter type (roughness/blur/random)
-- Parameter value
+- Parameter value (if applicable)
 - Seed value
 - Palette name
+- Palette hash (first 8 characters)
 EOF
 
 echo "✓ Generation complete! Summary saved to $OUTPUT_DIR/generation_summary.txt"
