@@ -147,17 +147,17 @@ python PlasmaCloud.py --mode colormap --num_images 5
 
 | Roughness = 2 | Roughness = 4 | Roughness = 8 | Roughness = 16 |
 |---------------|---------------|---------------|---------------|
-| ![Roughness 2](PlasmaAnimation/roughness/Plasma_0_roughness_roughness2_seed12345_palettepalette001.png) | ![Roughness 4](PlasmaAnimation/roughness/Plasma_1_roughness_roughness4_seed12345_palettepalette002.png) | ![Roughness 8](PlasmaAnimation/roughness/Plasma_2_roughness_roughness8_seed12345_palettepalette003.png) | ![Roughness 16](PlasmaAnimation/roughness/Plasma_3_roughness_roughness16_seed12345_palettepalette004.png) |
+| ![Roughness 2](PlasmaAnimation/roughness/Plasma_0_roughness_roughness2_seed12345_pal861c70_palettepalette001.png) | ![Roughness 4](PlasmaAnimation/roughness/Plasma_1_roughness_roughness4_seed12345_pal861c70_palettepalette002.png) | ![Roughness 8](PlasmaAnimation/roughness/Plasma_2_roughness_roughness8_seed12345_pal861c70_palettepalette003.png) | ![Roughness 16](PlasmaAnimation/roughness/Plasma_3_roughness_roughness16_seed12345_pal861c70_palettepalette004.png) |
 
 ### Blur Variations
 
 | Blur = 0 | Blur = 2 | Blur = 4 | Blur = 6 |
 |----------|----------|----------|----------|
-| ![Blur 0](PlasmaAnimation/blur/Plasma_0_blur_blur0_seed12345_palettepalette001.png) | ![Blur 2](PlasmaAnimation/blur/Plasma_1_blur_blur2_seed12345_palettepalette002.png) | ![Blur 4](PlasmaAnimation/blur/Plasma_2_blur_blur4_seed12345_palettepalette003.png) | ![Blur 6](PlasmaAnimation/blur/Plasma_3_blur_blur6_seed12345_palettepalette004.png) |
+| ![Blur 0](PlasmaAnimation/blur/Plasma_0_blur_blur0_seed12345_pal861c70_palettepalette001.png) | ![Blur 2](PlasmaAnimation/blur/Plasma_1_blur_blur2_seed12345_pal861c70_palettepalette002.png) | ![Blur 4](PlasmaAnimation/blur/Plasma_2_blur_blur4_seed12345_pal861c70_palettepalette003.png) | ![Blur 6](PlasmaAnimation/blur/Plasma_3_blur_blur6_seed12345_pal861c70_palettepalette004.png) |
 
 ### Random Generation
 
-![Random Example](PlasmaAnimation/random/Plasma_0_default_random_seed12345_palettepalette001.png)
+![Random Example](PlasmaAnimation/random/Plasma_0_default_random_seed12345_pal861c70_palettepalette001.png)
 
 ### Animations
 
