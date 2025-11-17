@@ -1,0 +1,14 @@
+[
+    {
+        "filename": "Plasma_0_roughness_rough16_seed12345_pal861c70.png",
+        "gif": null,
+        "image_index": 0,
+        "generation_mode": "roughness",
+        "params": {
+            "roughness": 16,
+            "blur": 0
+        },
+        "seed": 12345,
+        "palette_hash": "861c70"
+    }
+]

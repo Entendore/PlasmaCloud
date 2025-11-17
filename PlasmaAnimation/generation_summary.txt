@@ -1,0 +1,31 @@
+Plasma Generation Summary
+========================
+Seed: 12345
+Resolution: 512x512
+Palettes Directory: palettes
+Available Palettes: 150
+Generated on: Mon, Nov 17, 2025  2:44:48 PM
+
+Roughness Values:
+   - 2
+  - 4
+  - 8
+  - 16
+
+Blur Values:
+   - 0
+  - 2
+  - 4
+  - 6
+
+Files Generated:
+- Roughness images in: PlasmaAnimation/roughness/
+- Blur images in: PlasmaAnimation/blur/
+- Random image in: PlasmaAnimation/random/
+- Animations (if ffmpeg available): PlasmaAnimation/*_animation_*.gif
+
+Each filename includes:
+- Parameter type (roughness/blur/random)
+- Parameter value
+- Seed value
+- Palette name

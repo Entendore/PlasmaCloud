@@ -1,0 +1,14 @@
+[
+    {
+        "filename": "Plasma_0_blur_blur6_seed12345_pal861c70.png",
+        "gif": null,
+        "image_index": 0,
+        "generation_mode": "blur",
+        "params": {
+            "blur": 6,
+            "roughness": 8
+        },
+        "seed": 12345,
+        "palette_hash": "861c70"
+    }
+]
