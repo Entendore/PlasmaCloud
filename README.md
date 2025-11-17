@@ -157,7 +157,7 @@ python PlasmaCloud.py --mode colormap --num_images 5
 
 ### Random Generation
 
-![Random Example](PlasmaAnimation/random/random_seed12345_palette001_529ec8bd.png)
+![Random Example](PlasmaAnimation/random/random_seed12345_palette_001_529ec8bd.png)
 
 ### Animations
 
